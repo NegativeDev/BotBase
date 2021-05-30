@@ -15,10 +15,8 @@ public abstract class Bot {
 
     private final String id;
     private final String token;
-    private String prefix;
-    private String helpCommand;
     private JDA jda;
-    private CommandClientBuilder builder;
+    private final CommandClientBuilder builder;
 
     public Bot(String id, String token, String prefix) {
         this(id, token, prefix, null, null);
@@ -70,14 +68,6 @@ public abstract class Bot {
 
     public String getToken() {
         return token;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public String getHelpCommand() {
-        return helpCommand;
     }
 
     public JDA getJDA() {
