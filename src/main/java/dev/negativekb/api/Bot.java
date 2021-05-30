@@ -29,8 +29,6 @@ public abstract class Bot {
     }
 
     public Bot(String id, String token, String prefix, String helpWord, Activity activity) {
-        instance = this;
-
         this.id = id;
         this.token = token;
 
@@ -60,6 +58,10 @@ public abstract class Bot {
 
     public static Bot getInstance() {
         return instance;
+    }
+
+    public static void setInstance(Bot instance) {
+        Bot.instance = instance;
     }
 
     public String getID() {
