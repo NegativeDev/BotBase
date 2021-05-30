@@ -24,13 +24,13 @@
 
 [![](https://jitpack.io/v/NegativeKB/BotBase.svg)](https://jitpack.io/#NegativeKB/BotBase)
 
-**Examples:
+##Examples:
 
 Initing from Bot
 https://github.com/NegativeKB/BotBase/blob/master/src/main/java/dev/negativekb/api/BotClassExample.java
 
 
-**Building the Bot
+##Building the Bot
 From my experience, the Bot does not build correctly with all the dependancies until you add the following to your pom.xml:
 ```
     <build>
