@@ -25,4 +25,6 @@
 [![](https://jitpack.io/v/NegativeKB/BotBase.svg)](https://jitpack.io/#NegativeKB/BotBase)
 
 Examples:
-Coming soon.
+
+Initing from Bot
+https://github.com/NegativeKB/BotBase/blob/master/src/main/java/dev/negativekb/api/BotClassExample.java
