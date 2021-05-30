@@ -17,8 +17,8 @@
 <!-- BotBase / CodeBase -->
 <dependency>
   <groupId>com.github.NegativeKB</groupId>
-	<artifactId>BotBase</artifactId>
-	<version>VERSION</version>
+  <artifactId>BotBase</artifactId>
+  <version>VERSION</version>
 </dependency>
 ```
 
