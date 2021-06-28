@@ -43,11 +43,11 @@ public abstract class Bot {
         builder.setOwnerId(getID());
         builder.setPrefix(prefix);
 
-        if (activity != null)
-            builder.setActivity(activity);
-
         if (helpWord != null)
             builder.setHelpWord(helpWord);
+
+        if (activity != null)
+            builder.setActivity(activity);
 
         CommandClient client = builder.build();
 

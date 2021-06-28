@@ -1,34 +1,28 @@
 package dev.negativekb.api.command;
 
-import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import dev.negativekb.api.Bot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class ICommand extends Command {
-    private final ArrayList<ISubCommand> subCommands = new ArrayList<>();
+public abstract class ISubCommand {
 
-    public ICommand(String command) {
-        this(command, Collections.emptyList());
+    private final String argument;
+    private final List<String> aliases;
+    private final List<ISubCommand> subCommands = new ArrayList<>();
+
+    public ISubCommand(String argument) {
+        this(argument, Collections.emptyList());
     }
 
-    public ICommand(String command, List<String> aliases) {
-        this.name = command;
-
-        if (!aliases.isEmpty()) {
-            this.aliases = aliases.toArray(new String[0]);
-        }
-
-        Bot.getInstance().getBuilder().addCommand(this);
+    public ISubCommand(String argument, List<String> aliases) {
+        this.argument = argument;
+        this.aliases = aliases;
     }
 
-    @Override
-    protected void execute(CommandEvent event) {
-        String[] args = event.getArgs().split(" ");
+    public void execute(CommandEvent event, String[] args) {
         if (args.length == 0) {
             this.runCommand(event, args);
             return;
@@ -59,8 +53,15 @@ public abstract class ICommand extends Command {
 
     public abstract void runCommand(CommandEvent event, String[] args);
 
+    public String getArgument() {
+        return argument;
+    }
+
+    public List<String> getAliases() {
+        return aliases;
+    }
+
     public void addSubCommands(ISubCommand... subCommands) {
         this.subCommands.addAll(Arrays.asList(subCommands));
     }
-
 }
