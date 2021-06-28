@@ -85,10 +85,5 @@ public abstract class Bot {
     public CommandClientBuilder getBuilder() {
         return builder;
     }
-
-    public void addListeners(ListenerAdapter... listenerAdapters) {
-        for (ListenerAdapter listenerAdapter : listenerAdapters) {
-            getJDA().addEventListener(listenerAdapter);
-        }
-    }
+    
 }
