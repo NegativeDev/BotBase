@@ -14,6 +14,10 @@ public class InputListener extends ListenerAdapter {
 
     private static final Map<String, BiConsumer<Member, Message>> listenForInput = new HashMap<>();
 
+    public static void listenForInput(String id, BiConsumer<Member, Message> consumer) {
+        listenForInput.put(id, consumer);
+    }
+
     @Override
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
         Member member = event.getMember();
