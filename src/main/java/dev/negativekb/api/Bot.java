@@ -39,8 +39,6 @@ public abstract class Bot {
             e.printStackTrace();
         }
 
-        this.init();
-
         builder = new CommandClientBuilder();
 
         builder.setOwnerId(getID());
@@ -54,6 +52,8 @@ public abstract class Bot {
 
         if (onlineStatus != null)
             builder.setStatus(onlineStatus);
+
+        this.init();
 
         CommandClient client = builder.build();
 
