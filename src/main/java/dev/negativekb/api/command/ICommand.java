@@ -3,14 +3,13 @@ package dev.negativekb.api.command;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import dev.negativekb.api.Bot;
+import net.dv8tion.jda.api.EmbedBuilder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public abstract class ICommand extends Command {
     private final ArrayList<ISubCommand> subCommands = new ArrayList<>();
+    private CommandEvent event;
 
     public ICommand(String command) {
         this(command, Collections.emptyList());
@@ -30,6 +29,7 @@ public abstract class ICommand extends Command {
     protected void execute(CommandEvent event) {
         String[] args = event.getArgs().split(" ");
         if (args.length == 0) {
+            this.event = event;
             this.runCommand(event, args);
             return;
         }
@@ -54,6 +54,7 @@ public abstract class ICommand extends Command {
             }
         }
 
+        this.event = event;
         runCommand(event, args);
     }
 
@@ -61,6 +62,30 @@ public abstract class ICommand extends Command {
 
     public void addSubCommands(ISubCommand... subCommands) {
         this.subCommands.addAll(Arrays.asList(subCommands));
+    }
+
+    public void replyThenDelete(String message, int delayUntilDelete) {
+        event.reply(message, msg -> {
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    msg.delete().queue();
+                }
+            }, 1000L * delayUntilDelete);
+        });
+    }
+
+    public void replyThenDelete(EmbedBuilder embedBuilder, int delayUntilDelete) {
+        event.reply(embedBuilder.build(), message -> {
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    message.delete().queue();
+                }
+            }, 1000L * delayUntilDelete);
+        });
     }
 
 }
