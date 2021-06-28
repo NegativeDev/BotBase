@@ -2,6 +2,7 @@ package dev.negativekb.api;
 
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
+import dev.negativekb.api.util.InputListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -52,6 +53,8 @@ public abstract class Bot {
 
         if (onlineStatus != null)
             builder.setStatus(onlineStatus);
+
+        jda.addEventListener(new InputListener());
 
         this.init();
 
