@@ -65,25 +65,40 @@ From my experience, the Bot does not build correctly with all the dependancies u
 ## Code Examples
 **Bot Class**
 ```JAVA
-public class BotClassExample extends Bot {
+public class NegativeBot extends Bot {
+    private final NegativeBot instance;
+    public NegativeBot() {
+        super("client id", "bot token", "prefix", "help", Activity.watching("your mother"), OnlineStatus.DO_NOT_DISTURB);
 
-    public BotClassExample() {
-        super("ID HERE", "TOKEN HERE", "!", "help", Activity.watching("your mother"));
+        instance = this;
+    }
 
+    public NegativeBot get() {
+        return instance;
+    }
+
+    @Override
+    public void init() {
+        // This is where you should register your commands
+        // and/or listeners
+        
         setInstance(this);
 
-        // Other stuff here
+        registerCommands();
     }
+
+    private void registerCommands() {
+        new CommandProfile();
+    }
+
 }
 ```
 
 **Main Class**
 ```JAVA
-public class MainClass {
-
+public class Main {
     public static void main(String[] args) {
-        new BotClassExample();
+        new NegativeBot();
     }
-
 }
 ```
