@@ -62,15 +62,6 @@ From my experience, the Bot does not build correctly with all the dependancies u
     </build>
 ```
 
-The main class must have the following code:
-```
-// This method will be in its own class, aka Main.java or something.
-// The BotMainClass is where the class extends Bot
-public static void main(String[] args) {
-    new BotMainClass();
-}
-```
-
 ## Code Examples
 **Bot Class**
 ```JAVA
