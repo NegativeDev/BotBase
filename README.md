@@ -65,23 +65,10 @@ From my experience, the Bot does not build correctly with all the dependancies u
 ## Code Examples
 **Bot Class**
 ```JAVA
-public class BotClassExample extends Bot {
-
-    public BotClassExample() {
-        super("ID HERE", "TOKEN HERE", "!", "help", Activity.watching("your mother"));
-
-        setInstance(this);
-
-        // Other stuff here
-    }
-}
-```
-
-**Main Class**
-```JAVA
+public class NegativeBot extends Bot {
     private final NegativeBot instance;
     public NegativeBot() {
-        super("client id", "bot token", "prefix", "help word", Activity.watching("your mother"), OnlineStatus.DO_NOT_DISTURB);
+        super("client id", "bot token", "prefix", "help", Activity.watching("your mother"), OnlineStatus.DO_NOT_DISTURB);
 
         instance = this;
     }
@@ -92,9 +79,8 @@ public class BotClassExample extends Bot {
 
     @Override
     public void init() {
-        // This method is where things such as registering commands
-        // or listeners go as this method is called before the building of
-        // the bot is finalized
+        // This is where you should register your commands
+        // and/or listeners
         
         setInstance(this);
 
@@ -104,6 +90,15 @@ public class BotClassExample extends Bot {
     private void registerCommands() {
         new CommandProfile();
     }
-    
+
+}
+```
+
+**Main Class**
+```JAVA
+public class Main {
+    public static void main(String[] args) {
+        new NegativeBot();
+    }
 }
 ```
