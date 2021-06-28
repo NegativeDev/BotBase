@@ -4,6 +4,7 @@ import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -19,14 +20,14 @@ public abstract class Bot {
     private final CommandClientBuilder builder;
 
     public Bot(String id, String token, String prefix) {
-        this(id, token, prefix, null, null);
+        this(id, token, prefix, null, null, null);
     }
 
     public Bot(String id, String token, String prefix, Activity activity) {
-        this(id, token, prefix, null, activity);
+        this(id, token, prefix, null, activity, null);
     }
 
-    public Bot(String id, String token, String prefix, String helpWord, Activity activity) {
+    public Bot(String id, String token, String prefix, String helpWord, Activity activity, OnlineStatus onlineStatus) {
         this.id = id;
         this.token = token;
 
@@ -37,6 +38,8 @@ public abstract class Bot {
         } catch (LoginException e) {
             e.printStackTrace();
         }
+
+        this.init();
 
         builder = new CommandClientBuilder();
 
@@ -49,10 +52,15 @@ public abstract class Bot {
         if (activity != null)
             builder.setActivity(activity);
 
+        if (onlineStatus != null)
+            builder.setStatus(onlineStatus);
+
         CommandClient client = builder.build();
 
         jda.addEventListener(client);
     }
+
+    public abstract void init();
 
     public static Bot getInstance() {
         return instance;
