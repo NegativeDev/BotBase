@@ -40,11 +40,9 @@ public abstract class ISubCommand {
             if (aliases == null || aliases.isEmpty())
                 continue;
 
-            for (String alias : aliases) {
-                if (alias.equalsIgnoreCase(arg)) {
-                    subCommand.execute(event, newArgs);
-                    return;
-                }
+            if (aliases.contains(arg.toLowerCase())) {
+                subCommand.execute(event, newArgs);
+                return;
             }
         }
         this.event = event;

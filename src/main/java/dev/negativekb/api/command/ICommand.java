@@ -46,11 +46,9 @@ public abstract class ICommand extends Command {
             if (aliases == null || aliases.isEmpty())
                 continue;
 
-            for (String alias : aliases) {
-                if (alias.equalsIgnoreCase(arg)) {
-                    subCommand.execute(event, newArgs);
-                    return;
-                }
+            if (aliases.contains(arg.toLowerCase())) {
+                subCommand.execute(event, newArgs);
+                return;
             }
         }
 
