@@ -79,11 +79,31 @@ public class BotClassExample extends Bot {
 
 **Main Class**
 ```JAVA
-public class MainClass {
+    private final NegativeBot instance;
+    public NegativeBot() {
+        super("client id", "bot token", "prefix", "help word", Activity.watching("your mother"), OnlineStatus.DO_NOT_DISTURB);
 
-    public static void main(String[] args) {
-        new BotClassExample();
+        instance = this;
     }
 
+    public NegativeBot get() {
+        return instance;
+    }
+
+    @Override
+    public void init() {
+        // This method is where things such as registering commands
+        // or listeners go as this method is called before the building of
+        // the bot is finalized
+        
+        setInstance(this);
+
+        registerCommands();
+    }
+
+    private void registerCommands() {
+        new CommandProfile();
+    }
+    
 }
 ```
