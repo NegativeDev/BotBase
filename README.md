@@ -68,7 +68,7 @@ From my experience, the Bot does not build correctly with all the dependancies u
 public class NegativeBot extends Bot {
     private final NegativeBot instance;
     public NegativeBot() {
-        super("client id", "bot token", "prefix", "help", Activity.watching("your mother"), OnlineStatus.DO_NOT_DISTURB);
+        super("client id", "bot token", "prefix", "help word", Activity.watching("your mother"), OnlineStatus.DO_NOT_DISTURB);
 
         instance = this;
     }
