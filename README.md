@@ -76,3 +76,29 @@ public static void main(String[] args) {
     new BotMainClass();
 }
 ```
+
+## Code Examples
+**Bot Class**
+```JAVA
+public class BotClassExample extends Bot {
+
+    public BotClassExample() {
+        super("ID HERE", "TOKEN HERE", "!", "help", Activity.watching("your mother"));
+
+        setInstance(this);
+
+        // Other stuff here
+    }
+}
+```
+
+**Main Class**
+```JAVA
+public class MainClass {
+
+    public static void main(String[] args) {
+        new BotClassExample();
+    }
+
+}
+```
