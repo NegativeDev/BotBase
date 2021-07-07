@@ -1,15 +1,25 @@
 package dev.negativekb.api.command;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
+import lombok.Getter;
+import lombok.Setter;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.*;
 
 public abstract class ISubCommand {
 
+    @Getter
     private final String argument;
+
+    @Getter
     private final List<String> aliases;
+
+    @Getter
     private final List<ISubCommand> subCommands = new ArrayList<>();
+
+    @Getter
+    @Setter
     private CommandEvent event;
 
     public ISubCommand(String argument) {
@@ -23,29 +33,31 @@ public abstract class ISubCommand {
 
     public void execute(CommandEvent event, String[] args) {
         if (args.length == 0) {
-            this.event = event;
+            setEvent(event);
             this.runCommand(event, args);
             return;
         }
 
         String arg = args[0];
         String[] newArgs = Arrays.copyOfRange(args, 1, args.length);
-        for (ISubCommand subCommand : subCommands) {
-            if (subCommand.getArgument().equalsIgnoreCase(arg)) {
-                subCommand.execute(event, newArgs);
-                return;
-            }
 
-            List<String> aliases = subCommand.getAliases();
+        ISubCommand subCommand = getSubCommands().stream().filter(iSubCommand -> {
+            if (iSubCommand.getArgument().equalsIgnoreCase(arg))
+                return true;
+
+            List<String> aliases = iSubCommand.getAliases();
             if (aliases == null || aliases.isEmpty())
-                continue;
+                return false;
 
-            if (aliases.contains(arg.toLowerCase())) {
-                subCommand.execute(event, newArgs);
-                return;
-            }
+            return aliases.contains(arg.toLowerCase());
+        }).findFirst().orElse(null);
+
+        if (subCommand != null) {
+            subCommand.execute(event, newArgs);
+            return;
         }
-        this.event = event;
+
+        setEvent(event);
         runCommand(event, args);
     }
 

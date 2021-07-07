@@ -3,12 +3,18 @@ package dev.negativekb.api.command;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import dev.negativekb.api.Bot;
+import lombok.Getter;
+import lombok.Setter;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.*;
 
 public abstract class ICommand extends Command {
+    @Getter
     private final ArrayList<ISubCommand> subCommands = new ArrayList<>();
+
+    @Getter
+    @Setter
     private CommandEvent event;
 
     public ICommand(String command) {
@@ -18,9 +24,9 @@ public abstract class ICommand extends Command {
     public ICommand(String command, List<String> aliases) {
         this.name = command;
 
-        if (!aliases.isEmpty()) {
+        if (!aliases.isEmpty())
             this.aliases = aliases.toArray(new String[0]);
-        }
+
 
         Bot.getInstance().getBuilder().addCommand(this);
     }
@@ -29,30 +35,31 @@ public abstract class ICommand extends Command {
     protected void execute(CommandEvent event) {
         String[] args = event.getArgs().split(" ");
         if (args.length == 0) {
-            this.event = event;
+            setEvent(event);
             this.runCommand(event, args);
             return;
         }
 
         String arg = args[0];
         String[] newArgs = Arrays.copyOfRange(args, 1, args.length);
-        for (ISubCommand subCommand : subCommands) {
-            if (subCommand.getArgument().equalsIgnoreCase(arg)) {
-                subCommand.execute(event, newArgs);
-                return;
-            }
 
-            List<String> aliases = subCommand.getAliases();
+        ISubCommand subCommand = getSubCommands().stream().filter(iSubCommand -> {
+            if (iSubCommand.getArgument().equalsIgnoreCase(arg))
+                return true;
+
+            List<String> aliases = iSubCommand.getAliases();
             if (aliases == null || aliases.isEmpty())
-                continue;
+                return false;
 
-            if (aliases.contains(arg.toLowerCase())) {
-                subCommand.execute(event, newArgs);
-                return;
-            }
+            return aliases.contains(arg.toLowerCase());
+        }).findFirst().orElse(null);
+
+        if (subCommand != null) {
+            subCommand.execute(event, newArgs);
+            return;
         }
 
-        this.event = event;
+        setEvent(event);
         runCommand(event, args);
     }
 

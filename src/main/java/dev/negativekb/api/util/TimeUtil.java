@@ -1,24 +1,23 @@
 package dev.negativekb.api.util;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Time Utility
  *
  * @author Negative
  */
+@UtilityClass
 public class TimeUtil {
 
-    public static String format(long l1, long l2) {
+    public String format(long l1, long l2) {
         return format(l1, l2, false);
     }
 
     /**
      * l1 - l2.
-     *
-     * @param l1
-     * @param l2
-     * @return - formatted
      */
-    public static String format(long l1, long l2, boolean shortened) {
+    public String format(long l1, long l2, boolean shortened) {
         long newTime = l1 - l2;
 
         if (newTime <= 60000L) {
@@ -126,7 +125,7 @@ public class TimeUtil {
                 + minute + " " : "") + (secondNotZero ? toSec + (shortened ? "" : " ") + second : "");
     }
 
-    public static Long longFromString(String s) {
+    public Long longFromString(String s) {
         StringBuilder builder = new StringBuilder();
         int seconds = 0;
         int minutes = 0;

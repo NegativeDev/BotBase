@@ -1,5 +1,7 @@
 package dev.negativekb.api.util.sql;
 
+import lombok.Getter;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,6 +19,7 @@ public class MySQLConnector {
     private final String username;
     private final String password;
 
+    @Getter
     private Connection connection;
 
     /**
@@ -46,9 +49,9 @@ public class MySQLConnector {
     }
 
     /**
-     * Connect Function - Attempts to connect to the given MySQL Database
+     * Attempts to connect to the given MySQL Database
      */
-    public void connect() throws ClassNotFoundException, SQLException {
+    public void connect() throws SQLException {
         if (isConnected()) return;
 
         connection = DriverManager.getConnection("jdbc:mysql://" +
@@ -57,7 +60,7 @@ public class MySQLConnector {
     }
 
     /**
-     * Disconnect Function - Attempts to disconnect from the given MySQL Database
+     * Attempts to disconnect from the given MySQL Database
      */
     public void disconnect() {
         if (!isConnected()) return;
@@ -70,14 +73,5 @@ public class MySQLConnector {
         }
     }
 
-    /**
-     * Connection Getter
-     *
-     * @return Connect
-     * @apiNote This allows you to execute MySQL commands
-     */
-    public Connection getConnection() {
-        return connection;
-    }
 }
 

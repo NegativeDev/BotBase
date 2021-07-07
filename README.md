@@ -25,7 +25,10 @@
 [![](https://jitpack.io/v/NegativeKB/BotBase.svg)](https://jitpack.io/#NegativeKB/BotBase)
 
 ## Building the Bot
-From my experience, the Bot does not build correctly with all the dependancies until you add the following to your pom.xml:
+
+From my experience, the Bot does not build correctly with all the dependancies until you add the following to your
+pom.xml:
+
 ```
     <build>
         <plugins>
@@ -63,10 +66,13 @@ From my experience, the Bot does not build correctly with all the dependancies u
 ```
 
 ## Code Examples
+
 **Bot Class**
+
 ```JAVA
 public class NegativeBot extends Bot {
     private final NegativeBot instance;
+
     public NegativeBot() {
         super("client id", "bot token", "prefix", "help word", Activity.watching("your mother"), OnlineStatus.DO_NOT_DISTURB);
 
@@ -81,7 +87,7 @@ public class NegativeBot extends Bot {
     public void init() {
         // This is where you should register your commands
         // and/or listeners
-        
+
         setInstance(this);
 
         registerCommands();
@@ -95,6 +101,7 @@ public class NegativeBot extends Bot {
 ```
 
 **Main Class**
+
 ```JAVA
 public class Main {
     public static void main(String[] args) {
